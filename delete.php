@@ -14,11 +14,18 @@ if (!$connection) {
 }
 // Get the ID of the car to delete
 $id = $_GET['id'];
+$func = $_GET['func'];
 
-// Delete the car from the database
-$deleteQuery = "DELETE FROM cars WHERE car_id=$id";
-mysqli_query($connection, $deleteQuery);
-header("Location: wagenpark.php");
+if ($func == "2") {
+    $deleteQuery = "DELETE FROM cars WHERE car_id=$id";
+    mysqli_query($connection, $deleteQuery);
+    header("Location: wagenpark.php");
+}
+elseif ($func == "1") {
+    $deleteQuery = "DELETE FROM tijdblokken WHERE tijdblok_id=$id";
+    mysqli_query($connection, $deleteQuery);
+    header("Location: tijdblokken.php");
+}
 
 
 ?>
