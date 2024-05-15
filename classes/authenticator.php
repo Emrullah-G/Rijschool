@@ -150,11 +150,11 @@ class authenticator
                 'SELECT * FROM appointments as a LEFT JOIN user as u ON u.id = a.apprentice LEFT JOIN cars as c ON c.car_id = a.car WHERE instructor = :id and appointment_date >= CURRENT_TIMESTAMP() ORDER BY appointment_date ASC'
             );
         }
-//        else{
-//            $stmt = $this->conn->prepare(
-//                'SELECT * FROM appointments as a LEFT JOIN user as u ON u.id = a.instructor WHERE apprentice = :id ORDER BY appointment_date ASC'
-//            );
-//        }
+        else{
+            $stmt = $this->conn->prepare(
+                'SELECT * FROM appointments as a LEFT JOIN user as u ON u.id = a.instructor WHERE apprentice = :id ORDER BY appointment_date ASC'
+            );
+        }
 
         $stmt->execute(array(
             ':id' => $id,
