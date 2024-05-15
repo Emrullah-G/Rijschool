@@ -7,7 +7,7 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="/rijschool/assets/javascript.js"></script>
-    <link rel="stylesheet" href="/pravis/assets/style.css">
+    <link rel="stylesheet" href="/rijschool/assets/style.css">
 
     <script src="https://kit.fontawesome.com/47656a0d83.js" crossorigin="anonymous"></script>
 
@@ -59,7 +59,7 @@
                 echo "</div>
             </div>
             <div class='col-3 d-flex justify-content-end align-items-center'>
-                <div class='mx-3'><button data-action='settings_personal'><i class='fa-solid fa-gear'></i></button></div>";
+                <div class='mx-3'><button data-action='settings_personal'>Profiel Aanpassen</button></div>";
                 echo '<form method="GET" action="index.php">
                     <input type="hidden" name="logout" value="true">
                     <button class="btn btn-danger text-xxs font-weight-bolder opacity-7" type="submit">

@@ -27,30 +27,38 @@ require_once "assets/header.php";
                             <div class='form-group mt-1'>
                                 <input type='email' id='create_email' placeholder='Emailadres' autocomplete="off" class='shadow form-control' required>
                             </div>
-                            <div class='form-group mt-1'>
+                            <div class='form-group mt-2'>
                                 <input type='password' id='create_password' placeholder='Wachtwoord' class='shadow form-control' required>
                             </div>
 
                             <div class='form-group mt-3'>
                                 <input type='text' id='create_firstname' placeholder='Voornaam' autocomplete="off" class='shadow form-control' required>
                             </div>
-                            <div class='form-group mt-1'>
+                            <div class='form-group mt-2'>
                                 <input type='text'  id='create_lastname' placeholder='Achternaam' autocomplete="off" class='shadow form-control' required>
                             </div>
-                            <div class='form-group mt-1'>
+                            <div class='form-group mt-2'>
+                                <select id="create_gender" class="border p-2 rounded shadow" style="width:100%;" required>
+                                    <option>Man</option>
+                                    <option>Vrouw</option>
+                                </select>
+                            </div>
+                            <div class='form-group mt-2'>
                                 <input type='date'  id='create_geboortedatum' placeholder='Geboortedatum' autocomplete="off" class='shadow form-control' max="2010-01-01" required>
                             </div>
-                            <div class='form-group mt-1'>
+                            <div class='form-group mt-2'>
                                 <input type='text'  id='create_telefoon' placeholder='Telefoon' autocomplete="off" class='shadow form-control' required>
                             </div>
-                            <div class='form-group mt-3'>
-                                <input type='text'  id='create_adres' placeholder='Adres' autocomplete="off" class='shadow form-control' required>
+                            <div class="row mt-2 gap-0">
+                                <div class='col-8 form-group'>
+                                    <input type='text'  id='create_adres' placeholder='Adres' autocomplete="off" class='shadow form-control' required>
+                                </div>
+                                <div class='col-4 form-group'>
+                                    <input type='text'  id='create_number' placeholder='Huisnummer' autocomplete="off" class='shadow form-control' required>
+                                </div>
                             </div>
-                            <div class='form-group mt-1'>
+                            <div class='form-group mt-2'>
                                 <input type='text'  id='create_postcode' placeholder='Postcode' autocomplete="off" class='shadow form-control' required>
-                            </div>
-                            <div class='form-group mt-1'>
-                                <input type='text'  id='create_woonplaats' placeholder='Woonplaats' autocomplete="off" class='shadow form-control' required>
                             </div>
                             <div class='form-group mt-4'>
                                 <button type='button' data-action="create_button" class='form-control btn btn-danger rounded submit px-3'>Account aanmaken</button>

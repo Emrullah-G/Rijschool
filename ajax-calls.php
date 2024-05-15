@@ -11,29 +11,30 @@
             $_POST['password']
         );
     }
-    if($_POST['action'] == "create_patient"){
+    if($_POST['action'] == "create_account"){
         $authenticator->createAccount(
             $_POST['email'],
             $_POST['password'],
             $_POST['firstname'],
             $_POST['lastname'],
+            $_POST['gender'],
             $_POST['adres'],
             $_POST['postcode'],
-            $_POST['woonplaats'],
+            $_POST['number'],
             $_POST['geboortedatum'],
-            $_POST['telefoon'],
+            $_POST['telefoon']
         );
     }
     if($_POST['action'] == "remove_appointment"){
         $authenticator->removeAppointment(
-            $_POST['id'],
+            $_POST['id']
         );
     }
 
     if($_POST['action'] == "changepassword"){
         $authenticator->changePassworduser(
             $_POST['iduser'],
-            $_POST['password'],
+            $_POST['password']
         );
     }
 

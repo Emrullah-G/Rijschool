@@ -74,8 +74,8 @@ class authenticator
         }
     }
 
-    public function createAccount( $email, $password, $firstname, $lastname, $address, $zipcode, $residence, $birthdate, $phone) {
-        if(empty($email) || empty($password) || empty($firstname) || empty($lastname) || empty($address) || empty($zipcode) || empty($residence)  || empty($birthdate) || empty($phone)) {
+    public function createAccount( $email, $password, $firstname, $lastname, $gender, $address, $zipcode, $number, $birthdate, $phone) {
+        if(empty($email) || empty($password) || empty($firstname) || empty($lastname) || empty($address) || empty($zipcode) || empty($number) || empty($birthdate) || empty($phone)) {
             header('Content-Type: application/json');
             echo json_encode(['message' => 'Velden mogen niet leeg zijn', 'success' => false]);
             return;
@@ -88,11 +88,19 @@ class authenticator
 
         if($stmt->rowCount() == 0) {
 
+            if($gender == "Man"){
+                $gender = 1;
+            }
+            else{
+                $gender = 0;
+            }
 
             $salt = bin2hex(random_bytes(16));
             $newpassword = password_hash($salt.$this->validate($password), PASSWORD_BCRYPT);
 
-            $stmt = $this->conn->prepare('INSERT INTO '. $this->usertable .' ( email, password, salt, role, firstname, lastname, address, zipcode, residence, birthdate, phone ) VALUES ( :email, :password, :salt, :role, :firstname, :lastname, :address, :zipcode, :residence, :birthdate, :phone)');
+            $adres = $this->validate($address).' '.$this->validate($number);
+
+            $stmt = $this->conn->prepare('INSERT INTO '. $this->usertable .' ( email, password, salt, role, firstname, lastname, gender, address, zipcode, birthdate, phone, lesson_credit ) VALUES ( :email, :password, :salt, :role, :firstname, :lastname, :gender, :address, :zipcode, :birthdate, :phone, :lesson_credit)');
             $stmt->execute(array(
                 ':email' => $this->validate($email),
                 ':password' => $newpassword,
@@ -100,11 +108,12 @@ class authenticator
                 ':role' => 0,
                 ':firstname' => $this->validate($firstname),
                 ':lastname' => $this->validate($lastname),
-                ':address' => $this->validate($address),
+                ':gender' => $gender,
+                ':address' => $adres,
                 ':zipcode' => $this->validate($zipcode),
-                ':residence' => $this->validate($residence),
                 ':birthdate' => $this->validate($birthdate),
                 ':phone' => $this->validate($phone),
+                ':lesson_credit' => 0,
             ));
 
             $user_id = $this->conn->lastInsertId();
@@ -133,23 +142,45 @@ class authenticator
         return;
     }
 
-    public function changePassworduser($id, $password){
+    public function collectAppointments( $id, $role = null ){
         $this->databaseConnection();
 
-        $salt = bin2hex(random_bytes(16));
-        $newpassword = password_hash($salt.$this->validate($password), PASSWORD_BCRYPT);
+        if($role == 1) {
+            $stmt = $this->conn->prepare(
+                'SELECT * FROM appointments as a LEFT JOIN user as u ON u.id = a.apprentice LEFT JOIN cars as c ON c.car_id = a.car WHERE instructor = :id and appointment_date >= CURRENT_TIMESTAMP() ORDER BY appointment_date ASC'
+            );
+        }
+//        else{
+//            $stmt = $this->conn->prepare(
+//                'SELECT * FROM appointments as a LEFT JOIN user as u ON u.id = a.instructor WHERE apprentice = :id ORDER BY appointment_date ASC'
+//            );
+//        }
 
-        $stmt = $this->conn->prepare("UPDATE user SET password = ?, salt = ? WHERE id = ?");
-        $stmt->execute([
-            $this->validate($newpassword),
-            $this->validate($salt),
-            $this->validate($id),
-        ]);
+        $stmt->execute(array(
+            ':id' => $id,
+        ));
+        $appointments = $stmt->fetchALL(PDO::FETCH_ASSOC);
 
-        header('Content-Type: application/json');
-        echo json_encode(['message' => 'Wachtwoord aangepast', 'success' => true]);
-        return;
+        return $appointments;
     }
+
+//    public function changePassworduser($id, $password){
+//        $this->databaseConnection();
+//
+//        $salt = bin2hex(random_bytes(16));
+//        $newpassword = password_hash($salt.$this->validate($password), PASSWORD_BCRYPT);
+//
+//        $stmt = $this->conn->prepare("UPDATE user SET password = ?, salt = ? WHERE id = ?");
+//        $stmt->execute([
+//            $this->validate($newpassword),
+//            $this->validate($salt),
+//            $this->validate($id),
+//        ]);
+//
+//        header('Content-Type: application/json');
+//        echo json_encode(['message' => 'Wachtwoord aangepast', 'success' => true]);
+//        return;
+//    }
 }
 
 

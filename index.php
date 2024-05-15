@@ -3,6 +3,10 @@
 session_start();
 require_once "assets/header.php";
 
+$root_path = $_SERVER['DOCUMENT_ROOT'] . '/rijschool';
+require_once $root_path . '/classes/authenticator.php';
+use classes\authenticator;
+
 if (isset($_GET['logout'])) {
     session_destroy();
     header('Location: login.php');
@@ -26,7 +30,7 @@ if (isset($_GET['logout'])) {
                 <input type="hidden" id="iduser" value="<?php echo $_SESSION['user_id']; ?>">
             </div>
             <div class="modal-footer">
-                <button type="button" data-action="closechanges_personal" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
+                <button type="button" data-action="closesettings_personal" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
                 <button type="button" data-action="confirmchanges_personal" class="btn btn-primary">Opslaan</button>
             </div>
         </div>
@@ -37,10 +41,15 @@ if (isset($_GET['logout'])) {
     <?php
 
         if(isset($_SESSION['user_key'])){
-            require_once "agenda.php";
+            if($_SESSION['user_role'] == 2){
+                echo "Hier moet bram wat coderen";
+            }
+            else{
+                require_once "assets/layouts/agenda.php";
+            }
         }
         else{
-            require_once "assets/layouts/displaypage.php";
+            require_once "assets/layouts/home.php";
         }
 
     ?>
