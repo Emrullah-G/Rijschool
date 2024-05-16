@@ -53,7 +53,7 @@
 
 
             if($_SESSION['user_role'] >= 1){
-                echo "<a href='adminpanel.php'>Admin panel</a>";
+                echo "<a href='wagenpark.php'>wagen park</a> <a href='tijdblokken.php'>tijdblokken</a> <a href='bezettingsgraad.php'>Auto gebruik</a>";
             }
 
                 echo "</div>

@@ -1,15 +1,14 @@
 <?php
-
 session_start();
 require_once "assets/header.php";
 require_once "config.php";
 
+
+// Check user role
 if(!['user_role'] >= 2){
     header("Location: index");
     exit;
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -40,10 +39,10 @@ if(!['user_role'] >= 2){
         </thead>
         <tbody>
             <?php
-            // Verbinding maken met de database
+            // Connect to the database
             $connection = mysqli_connect(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 
-            // Controleren op fouten
+            // Check for connection errors
             if ($connection->connect_error) {
                 die("Verbinding mislukt: " . $mysqli->connect_error);
             }
@@ -51,31 +50,31 @@ if(!['user_role'] >= 2){
             if (isset($_GET['beginDate']) && isset($_GET['endDate'])) {
                 $begin = new DateTime($_GET['beginDate']);
                 $end = new DateTime($_GET['endDate']);
-                // Bereken het verschil tussen de begin- en einddatum
+                // Calculate the difference between the start and end date
                 $diff = $begin->diff($end);
 
-                // Bereken en update bezettingsgraad voor elke kamer
+                // Calculate and update occupancy rate for each car
                 $result = $connection->query("SELECT license_plate, car_id FROM cars");
                 while ($row = $result->fetch_assoc()) {
                     $carId = $row["car_id"];
                     $license_plate = $row["license_plate"];
                     $totalDriveTime = 0;
 
-                    // Haal alle afspraken van de huidige maand op voor deze kamer
+                    // Get all appointments for this car
                     $appointmentsResult = $connection->query("SELECT car FROM appointments WHERE car = $carId");
                     $numAppointments = $appointmentsResult->num_rows;
 
-                    $appointmenttime = 60; // 60 minuten per afspraak
-                    $totalDriveTime = $numAppointments * $appointmenttime;// totale rijtijd in minuten
+                    $appointmenttime = 60; // 60 minutes per appointment
+                    $totalDriveTime = $numAppointments * $appointmenttime; // total drive time in minutes
 
-                    $bezetting = $totalDriveTime / ($diff->days * 24 * 60) * 100; // Bezetting in procenten
+                    $bezetting = $totalDriveTime / ($diff->days * 24 * 60) * 100; // Occupancy rate in percentage
                     $bezetting = round($bezetting, 2);
 
                     echo "<tr><td>" . $row["license_plate"] . "</td><td>" . $bezetting . "</td></tr>";
                 }
             }
 
-            // Sluit de verbinding
+            // Close the connection
             $connection->close();
             ?>
         </tbody>
@@ -89,10 +88,10 @@ if(!['user_role'] >= 2){
         </thead>
         <tbody>
             <?php
-            // Verbinding maken met de database
+            // Connect to the database
             $connection = mysqli_connect(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 
-            // Controleren op fouten
+            // Check for connection errors
             if ($connection->connect_error) {
                 die("Verbinding mislukt: " . $mysqli->connect_error);
             }
@@ -101,13 +100,13 @@ if(!['user_role'] >= 2){
                 $begin = new DateTime($_GET['beginDate']);
                 $end = new DateTime($_GET['endDate']);
 
-                // Bereken en update bezettingsgraad voor elke kamer
+                // Get all appointments for each car
                 $result = $connection->query("SELECT license_plate, car_id FROM cars");
                 while ($row = $result->fetch_assoc()) {
                     $carId = $row["car_id"];
                     $license_plate = $row["license_plate"];
 
-                    // Haal alle afspraken van de huidige maand op voor deze kamer
+                    // Get all appointments for this car
                     $appointmentsResult = $connection->query("SELECT car, appointment_date FROM appointments WHERE car = $carId");
                     while ($appointment = $appointmentsResult->fetch_assoc()) {
                         echo "<tr><td>" . $license_plate . "</td><td>" . $appointment["appointment_date"] . "</td></tr>";
@@ -115,7 +114,7 @@ if(!['user_role'] >= 2){
                 }
             }
 
-            // Sluit de verbinding
+            // Close the connection
             $connection->close();
             ?>
         </tbody>

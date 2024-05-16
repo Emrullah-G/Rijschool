@@ -42,7 +42,7 @@ while ($tijdbloktimeResult = mysqli_fetch_assoc($tijdbloktime)) {
 
     if ($bezetting == 100) {
         // Update the status of the tijdblokken to 'bezet'
-        $updateqeury = "UPDATE tijdblokken SET status = 'bezet' WHERE tijdblok_id = $id";
+        $updateqeury = "UPDATE tijdblokken SET status = '2' WHERE tijdblok_id = $id";
     }
 }
 ?>
@@ -143,6 +143,14 @@ while ($tijdbloktimeResult = mysqli_fetch_assoc($tijdbloktime)) {
 
                 // Loop through the result and display the data in a table
                 while ($row = mysqli_fetch_assoc($tijdblokken)) {
+                    if ($row['status'] == 0) {
+                        $row['status'] = "Beschikbaar";
+                    } elseif ($row['status'] == 1){
+                        $row['status'] = "niet beschikbaar";
+                    }
+                    elseif ($row['status'] == 2){
+                        $row['status'] = "bezet";
+                    }
                     echo "<tr>";
                     echo "<td>" . $row['tijdblok_id'] . "</td>";
                     echo "<td>" . $row['start'] . "</td>";
