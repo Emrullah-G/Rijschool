@@ -22,7 +22,7 @@ require 'assets/layouts/modals.php';
 
     if(isset($_SESSION['user_key'])){
         if($_SESSION['user_role'] == 2){
-            echo "Hier moet bram wat coderen";
+            echo "Hallo " . $_SESSION['user_name'] . ", welkom op de admin pagina!";
         }
         else{
             require_once "assets/layouts/agenda.php";

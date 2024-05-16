@@ -3,13 +3,21 @@ session_start();
 require_once "assets/header.php";
 require_once "config.php";
 
-// Check if the user is logged in
-// If not, redirect to the login page
-// Uncomment the following lines to enable this check
-// if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] != 2) {
-//     header("Location: login.php");
-//     exit;
-// }
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header('Location: login.php');
+    exit;
+}
+
+if(!isset($_SESSION['user_key'])){
+    header("Location: login.php");
+    exit;
+}
+
+if(!$_SESSION['user_role'] >= 2){
+    header("Location: index.php");
+    exit;
+}
 
 // Establish a database connection
 $connection = mysqli_connect(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);

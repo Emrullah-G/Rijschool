@@ -3,8 +3,19 @@ session_start();
 require_once "config.php";
 
 // Check if the user has the required role
-if (!$_SESSION['user_role'] >= 2) {
-    header("Location: index");
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header('Location: login.php');
+    exit;
+}
+
+if(!isset($_SESSION['user_key'])){
+    header("Location: login.php");
+    exit;
+}
+
+if(!$_SESSION['user_role'] >= 2){
+    header("Location: index.php");
     exit;
 }
 

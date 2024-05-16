@@ -4,8 +4,19 @@ session_start();
 require_once "assets/header.php";
 require_once "config.php";
 
-if(!['user_role'] >= 2){
-    header("Location: index");
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header('Location: login.php');
+    exit;
+}
+
+if(!isset($_SESSION['user_key'])){
+    header("Location: login.php");
+    exit;
+}
+
+if(!$_SESSION['user_role'] >= 2){
+    header("Location: index.php");
     exit;
 }
 // Create a database connection

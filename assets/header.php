@@ -54,6 +54,8 @@
 
             if($_SESSION['user_role'] >= 1){
                 echo "<a href='lespakket.php'>Strippenkaart & Lespakket</a>";
+            }
+            if($_SESSION['user_role'] >= 2){
                 echo "<a href='wagenpark.php'>wagen park</a><a href='tijdblokken.php'>tijdblokken</a> <a href='bezettingsgraad.php'>Auto gebruik</a>";
             }
 
