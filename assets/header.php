@@ -56,7 +56,7 @@
                 echo "<a href='lespakket.php'>Strippenkaart & Lespakket</a>";
             }
             if($_SESSION['user_role'] >= 2){
-                echo "<a href='wagenpark.php'>wagen park</a><a href='tijdblokken.php'>tijdblokken</a> <a href='bezettingsgraad.php'>Auto gebruik</a> <a href='gebruiker.php'>gebruikers info</a>";
+                echo "<a href='wagenpark.php'>wagen park</a><a href='tijdblokken.php'>tijdblokken</a> <a href='bezettingsgraad.php'>Auto gebruik</a> <a href='gebruikers.php'>gebruikers info</a>";
             }
 
                 echo "</div>

@@ -27,6 +27,27 @@ if (!$connection) {
     die("Database connection failed: " . mysqli_connect_error());
 }
 
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!empty($_POST["start"])) {
+        // Get the start and end times from the form
+        $start = $_POST["start"];
+        $end = $_POST["end"];
+
+        // Insert the new tijdblokken into the database
+        $insertQuery = "INSERT INTO tijdblokken (start, end) VALUES ('$start', '$end')";
+
+        // Check if the query was successful
+        if (mysqli_query($connection, $insertQuery)) {
+            header("Location: tijdblokken.php");
+            return;
+        } else {
+            echo "Error adding tijdblokken: " . mysqli_error($connection);
+        }
+    }
+}
+
 ?>
 
 <?php
@@ -128,26 +149,7 @@ while ($tijdbloktimeResult = mysqli_fetch_assoc($tijdbloktime)) {
                     <th>instructeur</th>
                     <th>status</th>
                 </tr>
-                <?php
-                // Check if the form is submitted
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    if (!empty($_POST["start"])) {
-                        // Get the start and end times from the form
-                        $start = $_POST["start"];
-                        $end = $_POST["end"];
 
-                        // Insert the new tijdblokken into the database
-                        $insertQuery = "INSERT INTO tijdblokken (start, end) VALUES ('$start', '$end')";
-
-                        // Check if the query was successful
-                        if (mysqli_query($connection, $insertQuery)) {
-                            header("Location: tijdblokken.php");
-                        } else {
-                            echo "Error adding tijdblokken: " . mysqli_error($connection);
-                        }
-                    }
-                }
-                ?>
                 <?php
                 // Fetch all tijdblokken from the database
                 $tijdblokken = mysqli_query($connection, "SELECT * FROM tijdblokken");
