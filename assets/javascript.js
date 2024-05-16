@@ -79,4 +79,14 @@ jQuery(document).ready(function ($) {
         var modal = new bootstrap.Modal(myModal); // Create the Bootstrap Modal instance
         modal.show();
     });
+
+    $('body').on('click', '[data-action="tedt23"]', function(e) {
+        let id = $(this).data('id');
+
+        console.log(id);
+        $('#testbero').val(id);
+
+        $('#exampleModal').modal('show'); // Close the modal
+        // console.log('test');
+    });
 });

@@ -188,7 +188,7 @@ $conn->close();
                 <thead>
                 <tr>
                     <th>Lesnummer</th>
-                    <th>Leerling</th>
+                    <th>Instructeur</th>
                     <th>Auto</th>
                     <th>Tijd</th>
                     <th>Ophaaladres</th>
@@ -220,21 +220,48 @@ $conn->close();
                     echo "
                 <tr>
                     <td>{$appointment['lesson']}</td>
-                    <td>{$appointment['firstname']} {$appointment['lastname']} <button style='padding: 0px;margin-top:-5px;' type='button'><i class='text-danger fa-solid fa-circle-info'></i></button></td>
+                    <td>{$appointment['firstname']} {$appointment['lastname']}</td>
                     <td>{$appointment['license_plate']}</td>
                     <td>{$appointment['appointment_date']}</td>
                     <td>{$appointment['address']}, {$appointment['zipcode']}</td>
                     <td>{$appointment['status']}</td>
-                    <td><button style='padding: 0px;' type='button'><i class='fa-regular fa-note-sticky'></i></button></td>
+                    <td>";
+                    if (strtotime($appointment['appointment_date']) - time() > 24 * 3600) {
+                        // Toon de knop "Verzetten/Annuleren" als de afspraak meer dan 24 uur in de toekomst is
+                        echo "<button type='button' class='btn btn-danger' data-id='{$appointment['id']}' data-action='tedt23'>Annuleren/verzetten</button>";
+                    }
+                    echo"
+                    </td>
                 </tr>";
                 }
                 ?>
                 </tbody>
             </table>
         </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        This is the content of the modal.
 
 
 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form action="cancelappo.php" method="post">
+                        <button type="submit" class="btn btn-danger">Annuleren</button>
+                            <input type="hidden" name="idappo" id="testbero">
+                        </form>
+                        <button type="button" class="btn btn-primary">Verzetten</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <?php
     }
 ?>

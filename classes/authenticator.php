@@ -151,8 +151,9 @@ class authenticator
             );
         }
         else{
+            // Berkay
             $stmt = $this->conn->prepare(
-                'SELECT * FROM appointments as a LEFT JOIN user as u ON u.id = a.instructor WHERE apprentice = :id ORDER BY appointment_date ASC'
+                'SELECT * FROM appointments as a LEFT JOIN user as u ON u.id = a.instructor LEFT JOIN cars as c ON c.car_id = a.car WHERE apprentice = :id ORDER BY appointment_date ASC'
             );
         }
 
