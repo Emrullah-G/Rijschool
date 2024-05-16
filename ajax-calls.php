@@ -11,6 +11,30 @@
             $_POST['password']
         );
     }
+
+    if($_POST['action'] == "searchgebruikers"){
+        $authenticator->searchAccount(
+            $_POST['value']
+        );
+    }
+
+    if($_POST['action'] == "lessoncredit_aanpassen"){
+        $authenticator->lessonCredit(
+            $_POST['id'],
+            $_POST['textarea']
+        );
+    }
+
+
+    if($_POST['action'] == "textarea_settings"){
+        $authenticator->textAreasettings(
+            $_POST['id'],
+            $_POST['textarea']
+        );
+    }
+
+
+
     if($_POST['action'] == "create_account"){
         $authenticator->createAccount(
             $_POST['email'],
@@ -25,11 +49,20 @@
             $_POST['telefoon']
         );
     }
+
     if($_POST['action'] == "remove_appointment"){
         $authenticator->removeAppointment(
             $_POST['id']
         );
     }
+
+    if($_POST['action'] == "leraarziekmelden"){
+        $authenticator->meldjeZiek(
+            $_POST['id']
+        );
+    }
+
+
 
     if($_POST['action'] == "changepassword"){
         $authenticator->changePassworduser(

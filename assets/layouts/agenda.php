@@ -105,6 +105,10 @@ $conn->close();
         ?>
 
         <div class="container-fluid p-0 mt-5">
+                <div class="row mt-5 mb-4">
+                    <div class="col-6"></div>
+                    <div class="col-6 d-flex align-items-center justify-content-end"><button type="button" data-action="ziekmelden_today" data-id="<?php echo $_SESSION['user_id']?>" class="btn btn-danger">Ziekmelden voor vandaag</button></div>
+                </div>
             <table class="table table-light align-items-center table-striped">
                 <colgroup>
                     <col width='120'>
@@ -150,12 +154,12 @@ $conn->close();
                     echo "
                 <tr>
                     <td>{$appointment['lesson']}</td>
-                    <td>{$appointment['firstname']} {$appointment['lastname']} <button data-action='{$appointment['id']}' style='padding: 0px;margin-top:-5px;' type='button'><i class='text-danger fa-solid fa-circle-info'></i></button></td>
+                    <td>{$appointment['firstname']} {$appointment['lastname']} </td>
                     <td>{$appointment['license_plate']}</td>
                     <td>{$appointment['appointment_date']}</td>
                     <td>{$appointment['address']}, {$appointment['zipcode']}</td>
                     <td>{$appointment['status']}</td>
-                    <td><button style='padding: 0px;' data-action='{$appointment['id']}' type='button'><i class='fa-regular fa-note-sticky'></i></button></td>
+                    <td><button style='padding: 0px;' data-action='{$appointment['apprentice']}' type='button'><button data-action='leerling_overzicht' data-test='{$appointment['id']}' data-textarea='{$appointment['commentary']}' data-apprentice='{$appointment['apprentice']}' data-lessoncredit='{$appointment['lesson_credit']}' style='padding: 0px;margin-top:-5px;' type='button'><i class='text-danger fa-solid fa-circle-info'></i></button></td>
                 </tr>";
                 }
                 ?>

@@ -14,6 +14,7 @@ if (isset($_GET['logout'])) {
 }
 
 require 'config.php';
+require 'assets/layouts/modals.php';
 ?>
 
 <div class="container">
