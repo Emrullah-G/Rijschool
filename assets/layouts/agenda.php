@@ -34,7 +34,7 @@ $postcode = $user['zipcode'];
 
 // Now you can use $email, $firstname, $lastname, etc.
 } else {
-echo "User not found.";
+echo "User not found." ;
 }
 }
 
@@ -48,7 +48,7 @@ $conn->close();
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Wachtwoord aanpassen</h5>
+                <h5 class="modal-title" id="editModalLabel">Profiel aanpassen</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -222,6 +222,9 @@ $conn->close();
                     }
 
                     echo "
+
+                        <button type='button' class='btn btn-danger' data-action='Afspraakplanner'>Afspraak maken</button>
+
                 <tr>
                     <td>{$appointment['lesson']}</td>
                     <td>{$appointment['firstname']} {$appointment['lastname']}</td>
@@ -253,7 +256,6 @@ $conn->close();
                         This is the content of the modal.
 
 
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -266,6 +268,7 @@ $conn->close();
                 </div>
             </div>
         </div>
+
         <?php
     }
 ?>
