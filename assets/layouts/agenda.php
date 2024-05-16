@@ -174,10 +174,10 @@ $conn->close();
         ?>
 
         <div class="container-fluid p-0 mt-5">
-            <!--    <div class="row mt-5">-->
-            <!--        <div class="col-6"><h2>Afspraken</h2></div>-->
-            <!--        <div class="col-6 d-flex align-items-center justify-content-end"><a class="btn btn-success" href="resevering.php">Reserveren</a></div>-->
-            <!--    </div>-->
+            <div class="row mt-5 mb-4">
+                <div class="col-6 d-flex align-items-center justify-content-start"><button type="button" data-action="afspraakmaken_leerling" data-id="<?php echo $_SESSION['user_id'] ?>" class="btn btn-danger">Afspraak maken</button></div>
+                <div class="col-6"></div>
+            </div>
 
             <table class="table table-light align-items-center table-striped">
                 <colgroup>
@@ -223,8 +223,6 @@ $conn->close();
 
                     echo "
 
-                        <button type='button' class='btn btn-danger' data-action='Afspraakplanner'>Afspraak maken</button>
-
                 <tr>
                     <td>{$appointment['lesson']}</td>
                     <td>{$appointment['firstname']} {$appointment['lastname']}</td>
@@ -233,10 +231,13 @@ $conn->close();
                     <td>{$appointment['address']}, {$appointment['zipcode']}</td>
                     <td>{$appointment['status']}</td>
                     <td>";
-                    if (strtotime($appointment['appointment_date']) - time() > 24 * 3600) {
-                        // Toon de knop "Verzetten/Annuleren" als de afspraak meer dan 24 uur in de toekomst is
-                        echo "<button type='button' class='btn btn-danger' data-id='{$appointment['id']}' data-action='tedt23'>Annuleren/verzetten</button>";
+                    if($appointment['status'] == 'Actief'){
+                        if (strtotime($appointment['appointment_date']) - time() > 24 * 3600) {
+                            // Toon de knop "Verzetten/Annuleren" als de afspraak meer dan 24 uur in de toekomst is
+                            echo "<button type='button' data-id='{$appointment['id']}' data-action='tedt23'><i class='text-danger fa-solid fa-circle-info'></i></button>";
+                        }
                     }
+
                     echo"
                     </td>
                 </tr>";
@@ -261,7 +262,7 @@ $conn->close();
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <form action="cancelappo.php" method="post">
                         <button type="submit" class="btn btn-danger">Annuleren</button>
-                            <input type="hidden" name="idappo" id="testbero">
+                            <input type="text" name="idappo" id="testbero">
                         </form>
                         <button type="button" class="btn btn-primary">Verzetten</button>
                     </div>

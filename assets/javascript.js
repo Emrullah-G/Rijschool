@@ -251,4 +251,142 @@ jQuery(document).ready(function ($) {
             }
         });
     });
+
+    $('body').on('click', '[data-action="afspraakmaken_leerling"]', function(e) {
+        let id = $(this).data('id');
+        $('#student_id').val(id);
+
+        $('#select_date').empty();
+        $('#select_time').empty();
+
+        $.ajax({
+            url: '/rijschool/ajax-calls.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                action: 'collectadminusers',
+            },
+            success: function(response) {
+                if(response.success == true){
+                    $('#select_users').empty();
+                    $('#select_users').append('<option selected disabled>Kies je instructeur</option>');
+
+                    $.each(response.data, function(index, user) {
+                        $('#select_users').append('<option value="' + user.id + '">' + user.firstname + ' ' + user.lastname + '</option>');
+                    });
+                }
+                else{
+                    alert(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+
+        $('#student_afspraak_maken').modal('show'); // Close the modal
+    });
+
+
+
+
+
+    $('body').on('change', '[data-action="student_id"]', function(e) {
+        let valueSelected = $('#select_users').val();
+
+        $.ajax({
+            url: '/rijschool/ajax-calls.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                action: 'collectdatesselect',
+                valueselected: valueSelected,
+            },
+            success: function(response) {
+                if(response.success == true){
+                    $('#select_date').empty();
+                    $('#select_date').append('<option selected disabled>Kies je datum</option>');
+
+                    $.each(response.data, function(index, user) {
+                        $('#select_date').append('<option value="' + user.start + '">' + user.start + '</option>');
+                    });
+                }
+                else{
+                    alert(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+
+    $('body').on('change', '[data-action="student_date"]', function(e) {
+        let valueSelected = $('#select_date').val();
+        let selectedUser = $('#select_users').val();
+
+        $.ajax({
+            url: '/rijschool/ajax-calls.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                action: 'collecttimesselect',
+                valueselected: valueSelected,
+                selectedUser: selectedUser,
+            },
+            success: function(response) {
+                    $('#select_time').empty();
+                    $('#select_time').append('<option selected disabled>Kies je tijd</option>');
+
+                    $.each(response.data, function(index, time) {
+                        $('#select_time').append('<option value="' + time + '">' + time + '</option>');
+                    });
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+
+    $('body').on('click', '[data-action="save_afspraak"]', function(e) {
+        let date = $('#select_date').val();
+        let instructor = $('#select_users').val();
+        let select_time = $('#select_time').val();
+        let student_id = $('#student_id').val();
+
+
+        let einddatum = date + ' ' + select_time;
+
+        if(!instructor || !select_time || !date){
+            alert('Vul alle vleden');
+            return;
+        }
+
+        $.ajax({
+            url: '/rijschool/ajax-calls.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                action: 'createAfspraak',
+                date: date,
+                instructor: instructor,
+                einddatum: einddatum,
+                student_id: student_id,
+            },
+            success: function(response) {
+                if(response.success == true){
+                    var newUrl = "index.php";
+                    window.location.href = newUrl;
+                }
+                else{
+                    alert(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
 });

@@ -62,6 +62,33 @@
         );
     }
 
+    if($_POST['action'] == "collectadminusers"){
+        $authenticator->collectAdminusers();
+    }
+
+    if($_POST['action'] == "collectdatesselect"){
+        $authenticator->collectDates(
+            $_POST['valueselected'],
+        );
+    }
+
+    if($_POST['action'] == "collecttimesselect"){
+        $authenticator->collectTimes(
+            $_POST['valueselected'],
+            $_POST['selectedUser']
+        );
+    }
+
+
+    if($_POST['action'] == "createAfspraak"){
+        $authenticator->createAfspraak(
+            $_POST['date'],
+            $_POST['instructor'],
+            $_POST['einddatum'],
+            $_POST['student_id'],
+        );
+    }
+
 
 
     if($_POST['action'] == "changepassword"){
