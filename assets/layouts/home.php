@@ -31,7 +31,7 @@
             <p>
                 Welkom bij Vierkante wielen Rijschool, waar we jongeren met een fysieke beperking helpen om veilig en zelfverzekerd achter het stuur te stappen. Onze gespecialiseerde instructeurs bieden een inclusieve leeromgeving, waarbij de individuele behoeften van elke leerling centraal staan. Met onze vloot van twee elektrische auto's en drie aangepaste voertuigen streven we ernaar mobiliteit toegankelijk te maken voor iedereen.
                 <br><br>
-                Bij Veirkante wielen geloven we in het empoweren van onze leerlingen. We bieden een duurzame en op maat gemaakte rijervaring, zodat jongeren de vrijheid van autorijden kunnen ervaren, ongeacht hun fysieke uitdagingen.
+                Bij Vierkante wielen geloven we in het empoweren van onze leerlingen. We bieden een duurzame en op maat gemaakte rijervaring, zodat jongeren de vrijheid van autorijden kunnen ervaren, ongeacht hun fysieke uitdagingen.
             </p>
         </div>
         <div class="col-6 rounded background-information" >
@@ -73,29 +73,22 @@
     </div>
 </div>
 
-
-
 <div id="container-behandelingen" class="container-fluid mb-5 text-dark">
     <div class="row container-height">
-        <div class="col-6 container-items-left" style="padding-right: 75px;">
+        <div class="col-lg-6 container-items-left" style="padding-right: 75px;">
             <h1>Locatie</h1>
             <p>
                 Onze rijschool biedt een unieke ervaring voor aspirant-chauffeurs van alle niveaus. Gelegen aan Schoolstraat 5, verwelkomen we studenten en bezoekers om te genieten van onze innovatieve benadering en ondersteunende leeromgeving.
                 <br><br>
                 Onze rijschool bevindt zich op een opvallende locatie aan [Adres]. Omgeven door moderne architectuur en gemakkelijk bereikbaar, biedt onze school een unieke ervaring op de weg.
                 <br><br>
-            <ul>
-                <li>Maandag tot en met vrijdag: 09:00 - 18:00 uur</li>
-                <li>Zaterdag: 10:00 - 16:00 uur</li>
-                <li>Zondag: Gesloten</li>
-            </ul>
             </p>
         </div>
-        <div class="col-6 rounded background-behandelingen">
+        <div class="col-lg-6 rounded background-behandelingen">
+            <img src="assets/images/mapsrij.png" class="img-fluid" alt="Afbeelding">
         </div>
     </div>
 </div>
-
 
 <div class="container">
     <div class="row">

@@ -232,44 +232,25 @@ $conn->close();
                     <td>{$appointment['status']}</td>
                     <td>";
                     if($appointment['status'] == 'Actief'){
+                        // Controleer of de afspraak actief is
                         if (strtotime($appointment['appointment_date']) - time() > 24 * 3600) {
                             // Toon de knop "Verzetten/Annuleren" als de afspraak meer dan 24 uur in de toekomst is
-                            echo "<button type='button' data-id='{$appointment['id']}' data-action='tedt23'><i class='text-danger fa-solid fa-circle-info'></i></button>";
+                            echo "<form action='cancelappo.php' method='post'>
+                <button type='submit'><i class='text-danger fa-solid fa-xmark'></i></button>
+                <input type='hidden' name='idappo' value='{$appointment['id']}'>
+              </form>";
+                            echo '<button type="button" data-action="wijzigafspraak_leerling" data-appoid="'.$appointment['id'].'" data-id="'.$_SESSION['user_id'].'"><i class="text-danger fa-solid fa-calendar-plus"></i></button>';
                         }
                     }
-
                     echo"
                     </td>
+                    
                 </tr>";
                 }
                 ?>
                 </tbody>
             </table>
         </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        This is the content of the modal.
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <form action="cancelappo.php" method="post">
-                        <button type="submit" class="btn btn-danger">Annuleren</button>
-                            <input type="text" name="idappo" id="testbero">
-                        </form>
-                        <button type="button" class="btn btn-primary">Verzetten</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <?php
     }
 ?>

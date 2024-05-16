@@ -291,6 +291,67 @@ jQuery(document).ready(function ($) {
 
 
 
+    $('body').on('click', '[data-action="wijzigafspraak_leerling"]', function(e) {
+        let id = $(this).data('id');
+        let appoid = $(this).data('appoid');
+
+        $.ajax({
+            url: '/rijschool/ajax-calls.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                action: 'removeAppo',
+                appoid: appoid,
+            },
+            success: function(response) {
+
+
+
+
+                $('#student_id').val(id);
+
+                $('#select_date').empty();
+                $('#select_time').empty();
+
+
+                $.ajax({
+                    url: '/rijschool/ajax-calls.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        action: 'collectadminusers',
+                    },
+                    success: function(response) {
+                        if(response.success == true){
+                            $('#select_users').empty();
+                            $('#select_users').append('<option selected disabled>Kies je instructeur</option>');
+
+                            $.each(response.data, function(index, user) {
+                                $('#select_users').append('<option value="' + user.id + '">' + user.firstname + ' ' + user.lastname + '</option>');
+                            });
+                        }
+                        else{
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+
+                $('#student_afspraak_maken').modal('show'); // Close the modal
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+
+
+    });
+
+
+
+
     $('body').on('change', '[data-action="student_id"]', function(e) {
         let valueSelected = $('#select_users').val();
 

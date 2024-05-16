@@ -98,4 +98,18 @@
         );
     }
 
+if($_POST['action'] == "removeAppo"){
+    include "config.php";
+
+    $connection = mysqli_connect(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+
+    $updateQuery = "DELETE FROM appointments WHERE id = ".$_POST['appoid'] ;
+    mysqli_query($connection, $updateQuery);
+
+
+    header('Content-Type: application/json');
+    echo json_encode(['success' => true]);
+    return;
+}
+
 ?>
