@@ -42,5 +42,11 @@ if ($func == "2") {
     mysqli_query($connection, $deleteQuery);
     header("Location: tijdblokken.php");
 }
+elseif ($func == "3") {
+    // Delete user from the database
+    $deleteQuery = "DELETE FROM users WHERE user_id=$id";
+    mysqli_query($connection, $deleteQuery);
+    header("Location: gebruikers.php");
+}
 
 ?>
