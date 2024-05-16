@@ -4,10 +4,11 @@ session_start();
 require_once "assets/header.php";
 require_once "config.php";
 
-//if (!$_SESSION['user_id'] >= 1) {
-//    header("Location: login.php");
-//    exit;
-//}
+if(!['user_role'] >= 2){
+    header("Location: index");
+    exit;
+}
+
 
 ?>
 

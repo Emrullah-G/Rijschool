@@ -3,13 +3,15 @@ session_start();
 require_once "assets/header.php";
 require_once "config.php";
 
-// Check if the user is logged in
-// If not, redirect to the login page
-// Uncomment the following lines to enable this check
-// if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] != 2) {
-//     header("Location: login.php");
-//     exit;
-// }
+if(!['user_role'] >= 2){
+    header("Location: index");
+    exit;
+}
+
+ if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] != 2) {
+     header("Location: login.php");
+     exit;
+    }
 
 // Establish a database connection
 $connection = mysqli_connect(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
@@ -66,7 +68,7 @@ $currentURL = $_SERVER['REQUEST_URI'];
         // Fetch all users with role 1 from the users table
         $userQuery = "SELECT * FROM user WHERE role = 1";
         $userResult = mysqli_query($connection, $userQuery);
-
+        
         // Loop through the users and create an option for each one
         while ($userRow = mysqli_fetch_assoc($userResult)) {
             echo "<option value='" . $userRow['id'] . "'>" . $userRow['firstname'] . " " . $userRow['lastname'] . "</option>";
