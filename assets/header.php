@@ -30,39 +30,71 @@
         }
     </style>
 
+
+    <script>
+
+        jQuery(document).ready(function ($) {
+            $('body').on('click', 'mobile_menu_opener_change', function (e) {
+                $('#mobile_menu').modal('show'); // Close the modal
+                console.log('test');
+            });
+        });
+
+    </script>
+
     <?php
 
 
     if(@empty($_SESSION['user_key'])){
         echo "<div class='bg-light border row px-3'>
-        <div class='col-3'><a href='index.php'><img src='assets/images/logo-drive.png' class='img-fluid' style='width: 100px;height: 100px;' alt='Logo Tandarts'></a></div>
-        <div class='col-6 d-flex justify-content-center align-items-center'>
+        <div class='col-6 col-lg-3'><a href='index.php'><img src='assets/images/logo-drive.png' class='img-fluid' style='width: 100px;height: 100px;' alt='Logo Tandarts'></a></div>
+        <div class='col-6 d-none d-lg-flex justify-content-center align-items-center'>
             <div class='menu-items d-flex flex-row gap-4'>
                 <a href='index.php#container-visie'>Visie</a>
             <a href='index.php#container-teams'>Team van professionals</a>
                 <a href='index.php#container-behandelingen'>Locatie & Over ons</a>
             </div>
         </div>
-        <div class='col-3 d-flex justify-content-end align-items-center'><button onclick='window.location.href = `login.php`' class='btn btn-danger'>Inloggen</button></div>
+        <div class='col-6 col-lg-3 d-flex justify-content-end align-items-center'>
+            <div class='d-flex d-lg-none'>
+                <button type='button' class='mx-2' style='margin-bottom: -5px;' data-action='openmenu_mobile'>
+                    <i style='font-size: 24px' class='text-danger fa-solid fa-bars'></i>
+                </button>
+            </div>
+            <button onclick='window.location.href = `login.php`' class='btn btn-danger'>Inloggen</button>
+        </div>
     </div>";
     }else{
         echo "<div class='bg-light border row px-3'>
-            <div class='col-3'><a href='index.php'><img src='assets/images/logo-drive.png' class='img-fluid' style='width: 100px;height: 100px;' alt='Logo Tandarts'></a></div>
-            <div class='col-6 d-flex justify-content-center align-items-center'>
+            <div class='col-6 col-lg-3'><a href='index.php'><img src='assets/images/logo-drive.png' class='img-fluid' style='width: 100px;height: 100px;' alt='Logo Tandarts'></a></div>
+            <div class='col-6 d-none d-lg-flex justify-content-center align-items-center'>
                 <div class='menu-items d-flex flex-row gap-4'>";
 
 
             if($_SESSION['user_role'] >= 1){
-                echo "<a href='lespakket.php'>Strippenkaart & Lespakket</a>";
-            }
-            if($_SESSION['user_role'] >= 2){
-                echo "<a href='wagenpark.php'>wagen park</a><a href='tijdblokken.php'>tijdblokken</a> <a href='bezettingsgraad.php'>Auto gebruik</a> <a href='gebruikers.php'>gebruikers info</a>";
+                echo "<div class='d-none d-lg-block'>
+                        <a class=' mx-4' href='lespakket.php'>Strippenkaart & Lespakket</a>";
+
+                if($_SESSION['user_role'] >= 2) {
+                    echo "<a href='wagenpark.php'>Wagen park</a>
+                        <a class=' mx-2' href='tijdblokken.php'>Tijdblokken</a> 
+                        <a class=' mx-2' href='bezettingsgraad.php'>Auto gebruik</a> 
+                        <a class=' mx-2' href='gebruikers.php'>Gebruikers info</a>";
+                }
+
+                    echo "</div>";
             }
 
                 echo "</div>
             </div>
-            <div class='col-3 d-flex justify-content-end align-items-center'>
-                <div class='mx-3'><button data-action='settings_personal'>Profiel Aanpassen</button></div>";
+            <div class='col-6 col-lg-3 d-flex justify-content-end align-items-center'>
+                <div class='mx-3 d-none d-lg-block'><button type='button' data-action='settings_personal'>Profiel Aanpassen</button></div>
+                <div class='d-flex d-lg-none'>
+                    <button type='button' class='mx-2' style='margin-bottom: -5px;' data-action='openmenu_mobile'>
+                        <i style='font-size: 24px' class='text-danger fa-solid fa-bars'></i>
+                    </button>
+                </div>";
+
                 echo '<form method="GET" action="index.php">
                     <input type="hidden" name="logout" value="true">
                     <button class="btn btn-danger text-xxs font-weight-bolder opacity-7" type="submit">

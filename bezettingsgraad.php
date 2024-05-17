@@ -19,6 +19,8 @@ if(!$_SESSION['user_role'] >= 2){
     header("Location: index.php");
     exit;
 }
+
+require 'assets/layouts/modals.php';
 ?>
 
 <!DOCTYPE html>

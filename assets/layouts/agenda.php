@@ -106,10 +106,11 @@ $conn->close();
 
         <div class="container-fluid p-0 mt-5">
                 <div class="row mt-5 mb-4">
-                    <div class="col-6"></div>
+                    <div class="col-6 d-flex align-items-center justify-content-start"><button type="button" data-action="afspraakmaken_leraar" data-id="<?php echo $_SESSION['user_id'] ?>" class="btn btn-outline-danger">Afspraak maken voor leerling</button></div>
                     <div class="col-6 d-flex align-items-center justify-content-end"><button type="button" data-action="ziekmelden_today" data-id="<?php echo $_SESSION['user_id']?>" class="btn btn-danger">Ziekmelden voor vandaag</button></div>
                 </div>
-            <table class="table table-light align-items-center table-striped">
+            <div class="table-responsive">
+            <table class="table table-light align-items-center  table-striped">
                 <colgroup>
                     <col width='120'>
                     <col width='120'>
@@ -145,7 +146,13 @@ $conn->close();
                 foreach ($appointments as $appointment) {
 
                     if($appointment['status'] == 1){
-                        $appointment['status'] = 'Gecanceld';
+                        $appointment['status'] = 'Ziek';
+                    }
+                    elseif($appointment['status'] == 2){
+                        $appointment['status'] = 'Cancelt';
+                    }
+                    elseif($appointment['status'] == 99){
+                        $appointment['status'] = 'Les is geweest';
                     }
                     else{
                         $appointment['status'] = 'Actief';
@@ -159,12 +166,13 @@ $conn->close();
                     <td>{$appointment['appointment_date']}</td>
                     <td>{$appointment['address']}, {$appointment['zipcode']}</td>
                     <td>{$appointment['status']}</td>
-                    <td><button style='padding: 0px;' data-action='{$appointment['apprentice']}' type='button'><button data-action='leerling_overzicht' data-test='{$appointment['id']}' data-textarea='{$appointment['commentary']}' data-apprentice='{$appointment['apprentice']}' data-lessoncredit='{$appointment['lesson_credit']}' style='padding: 0px;margin-top:-5px;' type='button'><i class='text-danger fa-solid fa-circle-info'></i></button></td>
+                    <td><button style='padding: 0px;' data-action='{$appointment['apprentice']}' type='button'><button data-action='leerling_overzicht' data-test='{$appointment['id']}' data-textarea='{$appointment['commentary']}' data-annuleringreden='{$appointment['cancel_reason']}' data-apprentice='{$appointment['apprentice']}' data-lessoncredit='{$appointment['lesson_credit']}' style='padding: 0px;margin-top:-5px;' type='button'><i class='text-danger fa-solid fa-circle-info'></i></button></td>
                 </tr>";
                 }
                 ?>
                 </tbody>
             </table>
+            </div>
         </div>
 
 
@@ -178,7 +186,7 @@ $conn->close();
                 <div class="col-6 d-flex align-items-center justify-content-start"><button type="button" data-action="afspraakmaken_leerling" data-id="<?php echo $_SESSION['user_id'] ?>" class="btn btn-danger">Afspraak maken</button></div>
                 <div class="col-6"></div>
             </div>
-
+            <div class="table-responsive">
             <table class="table table-light align-items-center table-striped">
                 <colgroup>
                     <col width='120'>
@@ -215,10 +223,13 @@ $conn->close();
                 foreach ($appointments as $appointment) {
 
                     if($appointment['status'] == 1){
-                        $appointment['status'] = 'ziek';
+                        $appointment['status'] = 'Ziek';
                     }
                     elseif($appointment['status'] == 2){
-                        $appointment['status'] = 'cancelt';
+                        $appointment['status'] = 'Cancelt';
+                    }
+                    elseif($appointment['status'] == 99){
+                        $appointment['status'] = 'Les is geweest';
                     }
                     else{
                         $appointment['status'] = 'Actief';
@@ -245,6 +256,12 @@ $conn->close();
                             echo '<button type="button" data-action="wijzigafspraak_leerling" data-appoid="'.$appointment['id'].'" data-id="'.$_SESSION['user_id'].'"><i class="text-danger fa-solid fa-calendar-plus"></i></button>';
                         }
                     }
+
+                    if($appointment['status'] == 'Les is geweest'){
+                            // Toon de knop "Verzetten/Annuleren" als de afspraak meer dan 24 uur in de toekomst is
+                            echo '<button type="button" data-action="informatie_modal_leerling_samenvatting" data-commentary="'.$appointment['commentary'].'"><i class="text-danger fa-solid fa-circle-info"></i></button>';
+                    }
+
                     echo"
                     </div></td>
                     
@@ -253,6 +270,7 @@ $conn->close();
                 ?>
                 </tbody>
             </table>
+            </div>
         </div>
         <?php
     }

@@ -71,6 +71,9 @@ class authenticator
                 // Als het wachtwoord overeenkomt, log de gebruiker in en geef een succesbericht terug
                 $this->credentialsAccount($user['id'], $user['role']);
 
+                $expiretime = time() + (1 * 60 * 60);
+                setcookie('userRoleForCookie', $user['role'] , $expiretime);
+
                 header('Content-Type: application/json');
                 echo json_encode(['message' => 'Ingelogd', 'success' => true]);
                 exit;
@@ -432,7 +435,7 @@ class authenticator
 
         // Bereid de SQL-query voor om het leskrediet van de gebruiker bij te werken
         $stmt = $this->conn->prepare(
-            'SELECT * FROM user WHERE role = 1'
+            'SELECT id, firstname, lastname FROM user WHERE role = 1'
         );
         $stmt->execute([]);
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -440,6 +443,30 @@ class authenticator
         // Geef een succesbericht terug in JSON-indeling
         header('Content-Type: application/json');
         echo json_encode(['message' => 'Je hebt je zelf ziekgemeld', 'success' => true, 'data' => $data]);
+        return;
+    }
+
+    public function collectAdminusersleerling(){
+        // Maak verbinding met de database
+        $this->databaseConnection();
+
+        // Bereid de SQL-query voor om het leskrediet van de gebruiker bij te werken
+        $stmt = $this->conn->prepare(
+            'SELECT id, firstname, lastname FROM user WHERE role = 0'
+        );
+        $stmt->execute([]);
+        $data2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Bereid de SQL-query voor om het leskrediet van de gebruiker bij te werken
+        $stmt = $this->conn->prepare(
+            'SELECT id, firstname, lastname FROM user WHERE role = 1'
+        );
+        $stmt->execute([]);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Geef een succesbericht terug in JSON-indeling
+        header('Content-Type: application/json');
+        echo json_encode(['message' => 'Je hebt je zelf ziekgemeld', 'success' => true, 'instructor' => $data, 'leerling' => $data2]);
         return;
     }
 
@@ -533,6 +560,21 @@ class authenticator
             echo json_encode(['message' => 'U heeft geen credits', 'success' => false]);
             return;
         }
+
+        $stmt = $this->conn->prepare('SELECT appointment_date FROM appointments WHERE apprentice = :id AND appointment_date = :date');
+        $stmt->execute([
+            ':id' => $student_id,
+            ':date' => $einddatum
+        ]);
+        $datatest = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($datatest) != 0) {
+            header('Content-Type: application/json');
+            echo json_encode(['message' => 'Je hebt al een afspraak op dit datum en tijdstip', 'success' => false]);
+            return;
+        }
+
+
 
         $stmt = $this->conn->prepare('SELECT lesson FROM appointments WHERE apprentice = :id  ORDER BY lesson DESC LIMIT 1');
         $stmt->execute([

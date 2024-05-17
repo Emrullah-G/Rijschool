@@ -20,6 +20,8 @@ if(!$_SESSION['user_role'] >= 2){
     exit;
 }
 
+require 'assets/layouts/modals.php';
+
 // Create a database connection
 $connection = mysqli_connect(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 
@@ -172,14 +174,14 @@ while ($tijdbloktimeResult = mysqli_fetch_assoc($tijdbloktime)) {
             <h2>Overzicht tijdblokken</h2>
             <table>
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>start</th>
-                        <th>end</th>
-                        <th>car</th>
-                        <th>instructeur</th>
-                        <th>status</th>
-                    </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>start</th>
+                    <th>end</th>
+                    <th>car</th>
+                    <th>instructeur</th>
+                    <th>status</th>
+                </tr>
                 </thead>
                 <tbody>
                 <?php

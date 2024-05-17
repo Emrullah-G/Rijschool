@@ -66,6 +66,12 @@
         $authenticator->collectAdminusers();
     }
 
+    if($_POST['action'] == "collectadminusersleerling"){
+        $authenticator->collectAdminusersleerling();
+    }
+
+
+
     if($_POST['action'] == "collectdatesselect"){
         $authenticator->collectDates(
             $_POST['valueselected'],

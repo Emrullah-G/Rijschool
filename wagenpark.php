@@ -26,6 +26,7 @@ $connection = mysqli_connect(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE
 if (!$connection) {
     die("Database connection failed: " . mysqli_connect_error());
 }
+require 'assets/layouts/modals.php';
 
 ?>
 
