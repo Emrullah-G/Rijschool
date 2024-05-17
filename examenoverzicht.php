@@ -3,7 +3,21 @@ session_start();
 require_once "assets/header.php";
 require_once "config.php";
 
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header('Location: login.php');
+    exit;
+}
 
+if(!isset($_SESSION['user_key'])){
+    header("Location: login.php");
+    exit;
+}
+
+if(!$_SESSION['user_role'] >= 2){
+    header("Location: index.php");
+    exit;
+}
 
 require 'assets/layouts/modals.php';
 ?>
@@ -13,11 +27,11 @@ require 'assets/layouts/modals.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bezetting auto's</title>
+    <title>examen slaging precentage</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    <h1>Bezetting auto's</h1>
+    <h1>examen slaging precentage</h1>
     <form method="GET">
         <label for="beginDate">Begin Date:</label>
         <input type="datetime-local" id="beginDate" name="beginDate" required>
