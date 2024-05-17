@@ -182,12 +182,38 @@ while ($tijdbloktimeResult = mysqli_fetch_assoc($tijdbloktime)) {
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                 <label for="start">Start:</label><br>
                 <input type="datetime-local" name="start" id="start" required class="datetimepicker" min="<?php echo date('Y-m-d\TH:i'); ?>"><br>
-
                 <label for="end">End:</label><br>
-                <input type="datetime-local" name="end" id="end" required class="datetimepicker" min="<?php echo date('Y-m-d\H:i'); ?>"><br>
+                <input type="datetime-local" name="end" id="end" required class="datetimepicker" min="<?php echo date('Y-m-d\TH:i'); ?>"><br>
 
                 <input type="submit" value="Add">
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    function setMinutesToZero(input) {
+        input.addEventListener('input', function (e) {
+            let value = e.target.value;
+            if (value) {
+                let date = new Date(value);
+                date.setMinutes(0);
+                date.setSeconds(0);
+                date.setMilliseconds(0);
+
+                // Format date to YYYY-MM-DDTHH:00 in local time
+                let year = date.getFullYear();
+                let month = ('0' + (date.getMonth() + 1)).slice(-2);
+                let day = ('0' + date.getDate()).slice(-2);
+                let hours = ('0' + date.getHours()).slice(-2);
+                let formattedDate = `${year}-${month}-${day}T${hours}:00`;
+
+                e.target.value = formattedDate;
+            }
+        });
+    }
+
+    // Apply to both start and end inputs
+    setMinutesToZero(document.getElementById('start'));
+    setMinutesToZero(document.getElementById('end'));
+</script>

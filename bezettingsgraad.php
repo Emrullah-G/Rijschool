@@ -129,5 +129,32 @@ if(!$_SESSION['user_role'] >= 2){
             ?>
         </tbody>
     </table>
+
+    <script>
+        function setMinutesToZero(input) {
+            input.addEventListener('input', function (e) {
+                let value = e.target.value;
+                if (value) {
+                    let date = new Date(value);
+                    date.setMinutes(0);
+                    date.setSeconds(0);
+                    date.setMilliseconds(0);
+
+                    // Format date to YYYY-MM-DDTHH:00 in local time
+                    let year = date.getFullYear();
+                    let month = ('0' + (date.getMonth() + 1)).slice(-2);
+                    let day = ('0' + date.getDate()).slice(-2);
+                    let hours = ('0' + date.getHours()).slice(-2);
+                    let formattedDate = `${year}-${month}-${day}T${hours}:00`;
+
+                    e.target.value = formattedDate;
+                }
+            });
+        }
+
+        // Apply to both beginDate and endDate inputs
+        setMinutesToZero(document.getElementById('beginDate'));
+        setMinutesToZero(document.getElementById('endDate'));
+    </script>
 </body>
 </html>

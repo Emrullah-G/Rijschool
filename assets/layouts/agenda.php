@@ -230,7 +230,7 @@ $conn->close();
                     <td>{$appointment['appointment_date']}</td>
                     <td>{$appointment['address']}, {$appointment['zipcode']}</td>
                     <td>{$appointment['status']}</td>
-                    <td>";
+                    <td> <div class='d-flex align-items-center'>";
                     if($appointment['status'] == 'Actief'){
                         // Controleer of de afspraak actief is
                         if (strtotime($appointment['appointment_date']) - time() > 24 * 3600) {
@@ -243,7 +243,7 @@ $conn->close();
                         }
                     }
                     echo"
-                    </td>
+                    </div></td>
                     
                 </tr>";
                 }
