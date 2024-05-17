@@ -9,6 +9,8 @@ if(isset($_POST['idappo'])) {
     $reden = $_POST['cancelReason'];
     $status = 2; // De status instellen op 2 (geannuleerd)
 
+//    die($id);
+
     // Set up MySQLi connection
     $conn = new mysqli(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 
@@ -20,7 +22,7 @@ if(isset($_POST['idappo'])) {
 //    $sql = "UPDATE appointments SET status= $status, cancel_reason = $reden WHERE id= $id";
 
     // Query om gegevens in de database bij te werken
-    $sql = "UPDATE appointments SET status=?, cancel_reason = ? WHERE id=?";
+    $sql = "UPDATE appointments SET status = ?, cancel_reason = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("isi", $status, $reden, $id ); // ii staat voor integer (int) parameters
 

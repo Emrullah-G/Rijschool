@@ -249,8 +249,7 @@ $conn->close();
                         // Controleer of de afspraak actief is
                         if (strtotime($appointment['appointment_date']) - time() > 24 * 3600) {
                             // Toon de knop "Verzetten/Annuleren" als de afspraak meer dan 24 uur in de toekomst is
-                            echo "<button type='button' data-bs-toggle='modal' data-bs-target='#cancelModal'>
-                            <i class='text-danger fa-solid fa-xmark'></i></button>";
+                            echo "<button type='button' data-action='annuleer_afspraak_leerling' data-appoid='{$appointment['id']}'>  <i class='text-danger fa-solid fa-xmark'></i></button>";
                             echo '<button type="button" data-action="wijzigafspraak_leerling" data-appoid="'.$appointment['id'].'" data-id="'.$_SESSION['user_id'].'"><i class="text-danger fa-solid fa-calendar-plus"></i></button>';
                         }
                     }
@@ -280,7 +279,7 @@ $conn->close();
                     </div>
                     <div class="modal-body">
                         <form action="cancelappo.php" method="post">
-                            <input type="hidden" name="idappo" value="<?php echo $appointment['id']; ?>">
+                            <input type="text" id="idappo" name="idappo">
                             <div class="mb-3">
                                 <label for="cancelReason" class="form-label">Reden voor annulering:</label>
                                 <textarea class="form-control" id="cancelReason" name="cancelReason" rows="3" required></textarea>

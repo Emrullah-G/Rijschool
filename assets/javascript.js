@@ -606,5 +606,14 @@ jQuery(document).ready(function ($) {
     });
 
 
+    $('body').on('click', '[data-action="annuleer_afspraak_leerling"]', function(e) {
+        let appoid = $(this).data('appoid');
+
+        $('#idappo').val(appoid);
+        $('#cancelModal').modal('show'); // Close the modal
+    });
+
+
+
 
 });
