@@ -1,32 +1,33 @@
-<style>
-    .background-information {
-    background-image: url("assets/images/rijschool_home1.svg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-    }
-    .container-height{
-    height:400px;
-    }
-    .container-items-left {
-    display: flex;
-    flex-direction: column; /* Changed from row to column */
-        justify-content: center;
-        align-items: start;
-    }
-    /*.container-items-right {*/
-    /*    display: flex;*/
-    /*    flex-direction: column; !* Changed from row to column *!*/
-    /*    justify-content: center;*/
-    /*    align-items: end;*/
-    /*}*/
-
-
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-k6RqeWeci5ZR/Lv4MR0sA0FfDOMIRX1Ip5a3D4skSwR4Y8KjPJm8t4+VxF4UgTwSWWY9Z2NwE5AvCgbZRT7S9Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .background-information {
+            background-image: url("assets/images/rijschool_home1.svg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+        .container-height {
+            height: 400px;
+        }
+        .container-items-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+        }
+    </style>
+</head>
+<body>
 
 <div id="container-visie" class="container-fluid mt-5 mb-5 text-dark">
     <div class="row container-height">
-        <div class="col-6 container-items-left" style="padding-right: 75px;">
+        <div class="col-md-6 container-items-left pr-md-5">
             <h1>Visie</h1>
             <p>
                 Welkom bij Vierkante wielen Rijschool, waar we jongeren met een fysieke beperking helpen om veilig en zelfverzekerd achter het stuur te stappen. Onze gespecialiseerde instructeurs bieden een inclusieve leeromgeving, waarbij de individuele behoeften van elke leerling centraal staan. Met onze vloot van twee elektrische auto's en drie aangepaste voertuigen streven we ernaar mobiliteit toegankelijk te maken voor iedereen.
@@ -34,14 +35,13 @@
                 Bij Vierkante wielen geloven we in het empoweren van onze leerlingen. We bieden een duurzame en op maat gemaakte rijervaring, zodat jongeren de vrijheid van autorijden kunnen ervaren, ongeacht hun fysieke uitdagingen.
             </p>
         </div>
-        <div class="col-6 rounded background-information" >
-        </div>
+        <div class="col-md-6 rounded background-information"></div>
     </div>
 </div>
 
 <div id="container-teams" class="container px-4 py-5" id="featured-3">
     <h2 class="pb-2 border-bottom">Instructeurs</h2>
-    <div class="row g-4 py-5 row-cols-1 row-cols-lg-4">
+    <div class="row g-4 py-5 row-cols-1 row-cols-md-2 row-cols-lg-4">
         <div class="feature col">
             <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary p-2 rounded bg-gradient fs-2 mb-3">
                 <i class="fa-regular fa-circle-check"></i>
@@ -75,7 +75,7 @@
 
 <div id="container-behandelingen" class="container-fluid mb-5 text-dark">
     <div class="row container-height">
-        <div class="col-lg-6 container-items-left" style="padding-right: 75px;">
+        <div class="col-lg-6 container-items-left pr-lg-5">
             <h1>Locatie</h1>
             <p>
                 Onze rijschool biedt een unieke ervaring voor aspirant-chauffeurs van alle niveaus. Gelegen aan Schoolstraat 5, verwelkomen we studenten en bezoekers om te genieten van onze innovatieve benadering en ondersteunende leeromgeving.
@@ -92,7 +92,7 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-4">
             <div id="aanmeldenNieuwsbrief">
                 <h2>Meld je aan voor de nieuwsbrief</h2>
                 <div class="input-group mb-3">
@@ -101,8 +101,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div id="contactFormulier" class="mb-4">
+        <div class="col-md-6 mb-4">
+            <div id="contactFormulier">
                 <h2>Contactformulier</h2>
                 <form id="contactForm">
                     <div class="form-group">
@@ -143,9 +143,9 @@
     });
 </script>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
-        <div class="col-md-4 d-flex align-items-center">
+        <div class="col-md-4 d-flex align-items-center mb-4 mb-md-0">
             <div class="car text-center">
                 <svg width="200" height="100">
                     <image href="assets/images/electric-car-svgrepo-com.svg" width="200" height="100" />
@@ -155,7 +155,7 @@
                 <p class="mb-0">Elektrisch</p>
             </div>
         </div>
-        <div class="col-md-4 d-flex align-items-center">
+        <div class="col-md-4 d-flex align-items-center mb-4 mb-md-0">
             <div class="car text-center">
                 <svg width="200" height="100">
                     <image href="assets/images/electric-car-svgrepo-com.svg" width="200" height="100" />
@@ -178,7 +178,7 @@
     </div>
 </div>
 
-<footer class="footer">
+<footer class="footer mt-5">
     <div class="container">
         <hr> <!-- Streep boven de footer -->
         <div class="row">
@@ -196,4 +196,9 @@
     </div>
 </footer>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+</body>
+</html>
