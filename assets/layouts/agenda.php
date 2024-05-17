@@ -184,7 +184,8 @@ $conn->close();
         <div class="container-fluid p-0 mt-5">
             <div class="row mt-5 mb-4">
                 <div class="col-6 d-flex align-items-center justify-content-start"><button type="button" data-action="afspraakmaken_leerling" data-id="<?php echo $_SESSION['user_id'] ?>" class="btn btn-danger">Afspraak maken</button></div>
-                <div class="col-6"></div>
+                <div class="col-6 d-flex justify-content-end"><a href="exameninfo.php" class="btn btn-danger">Examen informatie</a>
+                </div>
             </div>
             <div class="table-responsive">
             <table class="table table-light align-items-center table-striped">
