@@ -6,6 +6,7 @@ require 'config.php'; // Inclusief databaseconfiguratie
 // Controleren of de ID van de afspraak is verzonden via POST
 if(isset($_POST['idappo'])) {
     $id = $_POST['idappo'];
+    $reden = $_POST['cancelReason'];
     $status = 2; // De status instellen op 2 (geannuleerd)
 
     // Set up MySQLi connection
@@ -16,10 +17,12 @@ if(isset($_POST['idappo'])) {
         die("Connection failed: " . $conn->connect_error);
     }
 
+//    $sql = "UPDATE appointments SET status= $status, cancel_reason = $reden WHERE id= $id";
+
     // Query om gegevens in de database bij te werken
-    $sql = "UPDATE appointments SET status=? WHERE id=?";
+    $sql = "UPDATE appointments SET status=?, cancel_reason = ? WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ii", $status, $id); // ii staat voor integer (int) parameters
+    $stmt->bind_param("isi", $status, $reden, $id ); // ii staat voor integer (int) parameters
 
     if ($stmt->execute()) {
         echo "Gegevens succesvol bijgewerkt";

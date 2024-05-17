@@ -249,10 +249,8 @@ $conn->close();
                         // Controleer of de afspraak actief is
                         if (strtotime($appointment['appointment_date']) - time() > 24 * 3600) {
                             // Toon de knop "Verzetten/Annuleren" als de afspraak meer dan 24 uur in de toekomst is
-                            echo "<form action='cancelappo.php' method='post'>
-                <button type='submit'><i class='text-danger fa-solid fa-xmark'></i></button>
-                <input type='hidden' name='idappo' value='{$appointment['id']}'>
-              </form>";
+                            echo "<button type='button' data-bs-toggle='modal' data-bs-target='#cancelModal'>
+                            <i class='text-danger fa-solid fa-xmark'></i></button>";
                             echo '<button type="button" data-action="wijzigafspraak_leerling" data-appoid="'.$appointment['id'].'" data-id="'.$_SESSION['user_id'].'"><i class="text-danger fa-solid fa-calendar-plus"></i></button>';
                         }
                     }
@@ -272,6 +270,31 @@ $conn->close();
             </table>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cancelModalLabel">Afspraak annuleren</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="cancelappo.php" method="post">
+                            <input type="hidden" name="idappo" value="<?php echo $appointment['id']; ?>">
+                            <div class="mb-3">
+                                <label for="cancelReason" class="form-label">Reden voor annulering:</label>
+                                <textarea class="form-control" id="cancelReason" name="cancelReason" rows="3" required></textarea>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Annuleren</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <?php
     }
 ?>

@@ -90,6 +90,59 @@
     </div>
 </div>
 
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="aanmeldenNieuwsbrief">
+                <h2>Meld je aan voor de nieuwsbrief</h2>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Vul je e-mailadres in" aria-label="E-mailadres" aria-describedby="button-aanmelden">
+                    <button class="btn btn-primary" type="button" id="button-aanmelden">Aanmelden</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="contactFormulier" class="mb-4">
+                <h2>Contactformulier</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="naam">Naam:</label>
+                        <input type="text" class="form-control" id="naam" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mailadres:</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="onderwerp">Onderwerp:</label>
+                        <input type="text" class="form-control" id="onderwerp" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bericht">Bericht:</label>
+                        <textarea class="form-control" id="bericht" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Verzenden</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Aanmelden voor nieuwsbrief
+    document.getElementById("button-aanmelden").addEventListener("click", function() {
+        var emailInput = document.querySelector("#aanmeldenNieuwsbrief input[type='email']");
+        emailInput.value = ""; // Maak het e-mailadres invoerveld leeg
+    });
+
+    // Contactformulier
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Voorkom standaardgedrag van het formulier (verzenden)
+        var form = event.target; // Het verzonden formulier
+        form.reset(); // Maak alle invoervelden van het formulier leeg
+    });
+</script>
+
 <div class="container">
     <div class="row">
         <div class="col-md-4 d-flex align-items-center">
@@ -124,5 +177,23 @@
         </div>
     </div>
 </div>
+
+<footer class="footer">
+    <div class="container">
+        <hr> <!-- Streep boven de footer -->
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-unstyled">
+                    <li><a href="#">Privacybeleid</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-unstyled">
+                    <li><a href="#">Algemene voorwaarden</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
 
 
