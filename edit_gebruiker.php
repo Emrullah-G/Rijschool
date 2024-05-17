@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // If the query was successful, display a success message
         echo "User updated successfully.";
         // Optionally redirect to a success page
-        header("Location: gebruiker.php"); 
+        header("Location: gebruikers.php");
         exit(); // Ensure no further code is executed after the redirection
     } else {
         // If the query failed, display an error message

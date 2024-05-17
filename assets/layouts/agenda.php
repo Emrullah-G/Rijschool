@@ -280,7 +280,7 @@ $conn->close();
                     </div>
                     <div class="modal-body">
                         <form action="cancelappo.php" method="post">
-                            <input type="text" id="idappo" name="idappo">
+                            <input type="hidden" id="idappo" name="idappo">
                             <div class="mb-3">
                                 <label for="cancelReason" class="form-label">Reden voor annulering:</label>
                                 <textarea class="form-control" id="cancelReason" name="cancelReason" rows="3" required></textarea>

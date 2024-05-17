@@ -166,7 +166,7 @@ $data = mysqli_fetch_assoc($result);
                         if(isset($_SESSION['user_role'])){
                             if($_SESSION['user_role'] >= 1){
                                 echo "<div><a class='' href='lespakket.php'>Strippenkaart & Lespakket</a>
-                                <div><a class='' href='axamenplannen.php'>Examenplannen</a>";
+                                </div><div><a class='' href='examenplannen.php'>Examenplannen</a></div>";
                             }
 
                             if($_SESSION['user_role'] >= 2) {

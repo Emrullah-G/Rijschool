@@ -38,10 +38,10 @@ $row = mysqli_fetch_assoc($result);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newinstructeur = $_POST['instructeur'];
     $newcar = $_POST['car'];
-    $newstatus = $_POST['status'];
-    $updateQuery = "UPDATE tijdblokken SET instructeur='$newinstructeur', car='$newcar', status='$newstatus' WHERE tijdblok_id=$id";
+    $updateQuery = "UPDATE tijdblokken SET instructeur='$newinstructeur', car='$newcar' WHERE tijdblok_id=$id";
     mysqli_query($connection, $updateQuery);
     header("location: tijdblokken.php");
+    exit();
 }
 // Get the current URL
 $currentURL = $_SERVER['REQUEST_URI'];

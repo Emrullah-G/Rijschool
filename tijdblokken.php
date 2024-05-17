@@ -20,7 +20,6 @@ if(!$_SESSION['user_role'] >= 2){
     exit;
 }
 
-require 'assets/layouts/modals.php';
 
 // Create a database connection
 $connection = mysqli_connect(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
@@ -252,3 +251,5 @@ while ($tijdbloktimeResult = mysqli_fetch_assoc($tijdbloktime)) {
     setMinutesToZero(document.getElementById('start'));
     setMinutesToZero(document.getElementById('end'));
 </script>
+
+<?php require 'assets/layouts/modals.php'; ?>

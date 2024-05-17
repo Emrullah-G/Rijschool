@@ -162,6 +162,9 @@ class authenticator
             // Maak standaardrechten voor het account
             $this->credentialsAccount($user_id, 0);
 
+            $expiretime = time() + (1 * 60 * 60);
+            setcookie('userRoleForCookie', 0 , $expiretime);
+
             // Geef een succesbericht terug in JSON-indeling
             header('Content-Type: application/json');
             echo json_encode(['message' => 'Account succesvol aangemaakt', 'success' => true]);
@@ -216,7 +219,7 @@ class authenticator
             FROM appointments as a 
             LEFT JOIN user as u ON u.id = a.apprentice 
             LEFT JOIN cars as c ON c.car_id = a.car 
-            WHERE instructor = :id and appointment_date >= CURRENT_TIMESTAMP() 
+            WHERE instructor = :id
             ORDER BY appointment_date ASC'
             );
 
@@ -229,6 +232,8 @@ class authenticator
             $stmt = $this->conn->prepare(
                 'SELECT a.*, c.*, u.firstname, u.lastname, u.address, u.zipcode, u.lesson_credit  FROM appointments as a LEFT JOIN user as u ON u.id = a.instructor LEFT JOIN cars as c ON c.car_id = a.car WHERE apprentice = :id ORDER BY lesson ASC'
             );
+
+
         }
 
         // Voer de query uit met de gegeven gebruikers-ID
@@ -236,8 +241,11 @@ class authenticator
             ':id' => $id,
         ));
 
+
+
         // Haal de resultaten op en retourneer ze als een array van associatieve arrays
         $appointments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
         return $appointments;
     }
@@ -560,6 +568,7 @@ class authenticator
             echo json_encode(['message' => 'U heeft geen credits', 'success' => false]);
             return;
         }
+
 
         $stmt = $this->conn->prepare('SELECT appointment_date FROM appointments WHERE apprentice = :id AND appointment_date = :date');
         $stmt->execute([

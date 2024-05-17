@@ -73,7 +73,9 @@
 
             if($_SESSION['user_role'] >= 1){
                 echo "<div class='d-none d-lg-block'>
-                        <a class=' mx-4' href='lespakket.php'>Strippenkaart & Lespakket</a>";
+                        <a class=' mx-4' href='lespakket.php'>Strippenkaart & Lespakket</a>
+                        <a class=' mx-4' href='examenplannen.php'>Examenplannen</a>
+                        ";
 
                 if($_SESSION['user_role'] >= 2) {
                     echo "<a href='wagenpark.php'>Wagen park</a>

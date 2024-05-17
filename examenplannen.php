@@ -34,8 +34,9 @@ require 'assets/layouts/modals.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Datum = date('Y-m-d H:i:s', strtotime($_POST['Datum']));
     $Leerling = $_POST['leerling'];
+    $status = $_POST['status'];
 
-    $sql = "INSERT INTO examen (user_id, datum) VALUES ('$Leerling', '$Datum')";
+    $sql = "INSERT INTO examen (user_id, datum, resultaat) VALUES ('$Leerling', '$Datum', $status)";
 
     if (mysqli_query($connection, $sql)) {
         echo "<div class='alert alert-success'>Examen is toegevoegd</div>";
@@ -110,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 
                 <label for="Datum">Datum examen:</label><br>
-                <input type="datetime-local" name="Datum" id="Datum" min="<?php echo date('Y-m-d\TH:i'); ?>" required><br>
+                <input type="datetime-local" name="Datum" id="Datum" required><br>
 
                 <!-- Select leerling from the database -->
                 <label for="leerling">Leerling:</label><br>
@@ -124,6 +125,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     ?>
                 </select><br>
+
+                <select name="status" class="mt-3">
+                    <option value="0">Gezakt</option>
+                    <option value="1">Geslaagd</option>
+                </select>
                 <input type="submit" value="Add" class="btn btn-primary mt-3">
             </form>
         </div>
@@ -131,3 +137,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 </body>
 </html>
+
+
+<?php require 'assets/layouts/modals.php'; ?>

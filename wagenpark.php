@@ -26,6 +26,28 @@ $connection = mysqli_connect(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE
 if (!$connection) {
     die("Database connection failed: " . mysqli_connect_error());
 }
+
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!empty($_POST["kenteken"])) {
+        // Get the kentken of the auto from the form
+        $kenteken = $_POST["kenteken"];
+        // Get the model of the auto from the form
+        $model = $_POST["model"];
+        // Get the bouwjaar of the auto from the form
+        $bouwjaar = $_POST["bouwjaar"];
+
+        // Insert the new auto into the database
+        $insertQuery = "INSERT INTO cars (license_plate, car_modal, car_buildyear) VALUES ('$kenteken', '$model', '$bouwjaar')";
+        // Check if the query was successful
+        if (mysqli_query($connection, $insertQuery)) {
+            header("Location: wagenpark.php");
+        } else {
+            echo "Error adding auto: " . mysqli_error($connection);
+        }
+    }
+}
 require 'assets/layouts/modals.php';
 
 ?>
@@ -90,28 +112,6 @@ require 'assets/layouts/modals.php';
                     <th>bouwjaar</th>
                     <th>merk</th>
                 </tr>
-                <?php
-                // Check if the form is submitted
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    if (!empty($_POST["kenteken"])) {
-                        // Get the kentken of the auto from the form
-                        $kenteken = $_POST["kenteken"];
-                        // Get the model of the auto from the form
-                        $model = $_POST["model"];
-                        // Get the bouwjaar of the auto from the form
-                        $bouwjaar = $_POST["bouwjaar"];
-
-                        // Insert the new auto into the database
-                        $insertQuery = "INSERT INTO cars (license_plate, car_modal, car_buildyear) VALUES ('$kenteken', '$model', '$bouwjaar')";
-                        // Check if the query was successful
-                        if (mysqli_query($connection, $insertQuery)) {
-                            header("Location: wagenpark.php");
-                        } else {
-                            echo "Error adding auto: " . mysqli_error($connection);
-                        }
-                    }
-                }
-                ?>
                 <?php
                 // Fetch all tennis courts from the database
                 $autos = mysqli_query($connection, "SELECT * FROM cars");

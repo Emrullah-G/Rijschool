@@ -202,3 +202,69 @@
 
 </body>
 </html>
+
+<style>
+    #cookieBanner{
+        position: fixed;
+        bottom: 10px;
+        width: 40%;
+        border-radius: 14px;
+        background-color: white;
+        z-index: 20;
+        /*transform: translateY(30px);*/
+        border:2px solid gray;
+    }
+</style>
+
+<div id='cookieBanner'>
+    <div class="row gap-3" style="padding: 30px;">
+        <div class="col-10">
+            <div id="cookieMessage" >Accepteer onze cookies AVG, vanwege bepaalde reden we slaan niks onnodigs op behalve wat we nodig hebben</div>
+        </div>
+
+        <div class="col-12">
+            <button data-action="acceptcookie" class="btn btn-danger">Cookies Accepteren</button>
+            <button data-action="denycookie" class="btn btn-secondary">Cookies Weigeren</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        if (!getCookie('cookiesAccepted')) {
+            $('#cookieBanner').show();
+        } else {
+            $('#cookieBanner').hide();
+        }
+
+        $('body').on('click', '[data-action="acceptcookie"]', function(e) {
+            setCookie('cookiesAccepted', true, 10)
+            $('#cookieBanner').hide();
+        });
+
+        $('body').on('click', '[data-action="denycookie"]', function(e) {
+            setCookie('cookiesAccepted', false, 10)
+            $('#cookieBanner').hide();
+        });
+    });
+</script>
