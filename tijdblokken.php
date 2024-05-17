@@ -19,6 +19,7 @@ if(!$_SESSION['user_role'] >= 2){
     header("Location: index.php");
     exit;
 }
+
 // Create a database connection
 $connection = mysqli_connect(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 
@@ -26,7 +27,6 @@ $connection = mysqli_connect(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE
 if (!$connection) {
     die("Database connection failed: " . mysqli_connect_error());
 }
-
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -47,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
 ?>
 
 <?php
@@ -112,7 +111,8 @@ while ($tijdbloktimeResult = mysqli_fetch_assoc($tijdbloktime)) {
     input[type="email"],
     input[type="password"],
     input[type="date"],
-    input[type="submit"] {
+    input[type="submit"],
+    input[type="datetime-local"] {
         width: 100%;
         padding: 8px;
         margin-bottom: 10px;
@@ -134,22 +134,54 @@ while ($tijdbloktimeResult = mysqli_fetch_assoc($tijdbloktime)) {
     .error {
         color: red;
     }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 15px;
+        }
+        table, th, td {
+            display: block;
+            width: 100%;
+        }
+        th, td {
+            padding: 5px;
+            text-align: right;
+        }
+        th {
+            background-color: #f9f9f9;
+            text-align: right;
+        }
+        td::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+        }
+        th, td a {
+            text-align: left;
+        }
+        thead {
+            display: none;
+        }
+    }
 </style>
 
 <div id="container_now" class="container mt-5 bg-light p-2 border d-flex justify-content-center align-items-center">
-    <div class="row">
+    <div class="row w-100">
         <div class="col-12">
             <h2>Overzicht tijdblokken</h2>
             <table>
-                <tr>
-                    <th>ID</th>
-                    <th>start</th>
-                    <th>end</th>
-                    <th>car</th>
-                    <th>instructeur</th>
-                    <th>status</th>
-                </tr>
-
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>start</th>
+                        <th>end</th>
+                        <th>car</th>
+                        <th>instructeur</th>
+                        <th>status</th>
+                    </tr>
+                </thead>
+                <tbody>
                 <?php
                 // Fetch all tijdblokken from the database
                 $tijdblokken = mysqli_query($connection, "SELECT * FROM tijdblokken");
@@ -165,27 +197,28 @@ while ($tijdbloktimeResult = mysqli_fetch_assoc($tijdbloktime)) {
                         $row['status'] = "bezet";
                     }
                     echo "<tr>";
-                    echo "<td>" . $row['tijdblok_id'] . "</td>";
-                    echo "<td>" . $row['start'] . "</td>";
-                    echo "<td>" . $row['end'] . "</td>";
-                    echo "<td>" . $row['car'] . "</td>";
-                    echo "<td>" . $row['instructeur'] . "</td>";
-                    echo "<td>" . $row['status'] . "</td>";
-                    echo "<td><a href='tijdblok_edit.php?id=" . $row['tijdblok_id'] . "'>Edit</a> | <a href='delete.php?id=" . $row['tijdblok_id'] . "&func=1' onclick='return confirm(\"Are you sure you want to delete " . $row['tijdblok_id'] . "?\")'>Delete</a> | <a href='tijdblokinzicht.php?id=" . $row['tijdblok_id'] . "'>Info</a></td>";
+                    echo "<td data-label='ID'>" . $row['tijdblok_id'] . "</td>";
+                    echo "<td data-label='Start'>" . $row['start'] . "</td>";
+                    echo "<td data-label='End'>" . $row['end'] . "</td>";
+                    echo "<td data-label='Car'>" . $row['car'] . "</td>";
+                    echo "<td data-label='Instructeur'>" . $row['instructeur'] . "</td>";
+                    echo "<td data-label='Status'>" . $row['status'] . "</td>";
+                    echo "<td data-label='Actions'><a href='tijdblok_edit.php?id=" . $row['tijdblok_id'] . "'>Edit</a> | <a href='delete.php?id=" . $row['tijdblok_id'] . "&func=1' onclick='return confirm(\"Are you sure you want to delete " . $row['tijdblok_id'] . "?\")'>Delete</a> | <a href='tijdblokinzicht.php?id=" . $row['tijdblok_id'] . "'>Info</a></td>";
                     echo "</tr>";
                 }
                 ?>
+                </tbody>
             </table>
         </div>
         <div class="col-12">
-            <h2>Add Timeblokk</h2>
+            <h2>Tijdblok toevoegen</h2>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                 <label for="start">Start:</label><br>
                 <input type="datetime-local" name="start" id="start" required class="datetimepicker" min="<?php echo date('Y-m-d\TH:i'); ?>"><br>
                 <label for="end">End:</label><br>
                 <input type="datetime-local" name="end" id="end" required class="datetimepicker" min="<?php echo date('Y-m-d\TH:i'); ?>"><br>
 
-                <input type="submit" value="Add">
+                <input type="submit" value="Toevoegen">
             </form>
         </div>
     </div>

@@ -99,6 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Read the preferences from cookies and set the checkboxes accordingly
         document.getElementById('analytics-cookies').checked = getCookie('analyticsCookies') === 'true';
         document.getElementById('marketing-cookies').checked = getCookie('marketingCookies') === 'true';
+
+        cookieBanner.style.display = 'none';
     }
 
     acceptCookiesButton.addEventListener('click', () => {

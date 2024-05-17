@@ -75,28 +75,67 @@ if (!$connection) {
     .error {
         color: red;
     }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 15px;
+        }
+        table, th, td {
+            display: block;
+            width: 100%;
+        }
+        th, td {
+            padding: 5px;
+            text-align: right;
+        }
+        th {
+            background-color: #f9f9f9;
+            text-align: right;
+        }
+        td::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+        }
+        th, td a {
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        thead {
+            display: none;
+        }
+    }
 </style>
 
 <div id="container_now" class="container mt-5 bg-light p-2 border d-flex justify-content-center align-items-center">
-    <div class="row">
+    <div class="row w-100">
         <div class="col-12">
             <h2>gebruikers</h2>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                <label for="naaam">naam:</label>
-                <input type="text" name="naam" id="naam" required>
+                <div class="form-group">
+                    <label for="naam">naam:</label>
+                    <input type="text" name="naam" id="naam" required>
+                </div>
                 <input type="submit" value="Search">
             </form>    
             <table>
-                <tr>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Postal Code</th>
-                    <th>Birthday</th>
-                    <th>Phone</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Postal Code</th>
+                        <th>Birthday</th>
+                        <th>Phone</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
                 <?php
                 // Get the current date and time
                 $currentdatetime = date('Y-m-d H:i:s');
@@ -151,26 +190,27 @@ if (!$connection) {
                             }
 
                             echo "<tr>";
-                            echo "<td>" . $row['email'] . "</td>";
-                            echo "<td>" . $row['name'] . "</td>";
-                            echo "<td>" . $row['address'] . "</td>";
-                            echo "<td>" . $row['zipcode'] . "</td>";
-                            echo "<td>" . $row['birthdate'] . "</td>";
-                            echo "<td>" . $row['phone'] . "</td>";
-                            echo "<td>" . $row['role'] . "</td>";
-                            echo "<td>" . $status . "</td>";
-                            echo "<td><a href='edit_gebruiker.php?id=" . $row['id'] . "'>Edit</a> | <a href='delete.php?id=" . $row['id'] . "&func=3' onclick='return confirm(\"Are you sure you want to delete " . $row['name'] . "?\")'>Delete</a></td>";
+                            echo "<td data-label='Email'>" . $row['email'] . "</td>";
+                            echo "<td data-label='Name'>" . $row['name'] . "</td>";
+                            echo "<td data-label='Address'>" . $row['address'] . "</td>";
+                            echo "<td data-label='Postal Code'>" . $row['zipcode'] . "</td>";
+                            echo "<td data-label='Birthday'>" . $row['birthdate'] . "</td>";
+                            echo "<td data-label='Phone'>" . $row['phone'] . "</td>";
+                            echo "<td data-label='Role'>" . $row['role'] . "</td>";
+                            echo "<td data-label='Status'>" . $status . "</td>";
+                            echo "<td data-label='Actions'><a href='edit_gebruiker.php?id=" . $row['id'] . "'>Edit</a> | <a href='delete.php?id=" . $row['id'] . "&func=3' onclick='return confirm(\"Are you sure you want to delete " . $row['name'] . "?\")'>Delete</a></td>";
                             echo "</tr>";
                         }
                     } else {
                         // Handle query error or no results found
-                        echo "No users found or error in fetching users: " . mysqli_error($connection);
+                        echo "<tr><td colspan='9'>No users found or error in fetching users: " . mysqli_error($connection) . "</td></tr>";
                     }
                 }
 
                 // Close the connection
                 mysqli_close($connection);
                 ?>
+                </tbody>
             </table>
         </div>
     </div>
