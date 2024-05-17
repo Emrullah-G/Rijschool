@@ -172,7 +172,8 @@ $data = mysqli_fetch_assoc($result);
                                 echo "<div><a href='wagenpark.php'>Wagen park</a></div>
                                 <div><a class='' href='tijdblokken.php'>Tijdblokken</a></div>
                                 <div><a class='' href='bezettingsgraad.php'>Auto gebruik</a></div>
-                                <div><a class='' href='gebruikers.php'>Gebruikers info</a></div>";
+                                <div><a class='' href='gebruikers.php'>Gebruikers info</a></div>
+                                <div><a class='' href='examenoverzicht.php'>Auto gebruik</a></div>";
                             }
 
                             echo "</div>";
