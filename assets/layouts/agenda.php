@@ -215,7 +215,10 @@ $conn->close();
                 foreach ($appointments as $appointment) {
 
                     if($appointment['status'] == 1){
-                        $appointment['status'] = 'Gecanceld';
+                        $appointment['status'] = 'ziek';
+                    }
+                    elseif($appointment['status'] == 2){
+                        $appointment['status'] = 'cancelt';
                     }
                     else{
                         $appointment['status'] = 'Actief';

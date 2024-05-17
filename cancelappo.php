@@ -6,7 +6,7 @@ require 'config.php'; // Inclusief databaseconfiguratie
 // Controleren of de ID van de afspraak is verzonden via POST
 if(isset($_POST['idappo'])) {
     $id = $_POST['idappo'];
-    $status = 1; // De status instellen op 1
+    $status = 2; // De status instellen op 2 (geannuleerd)
 
     // Set up MySQLi connection
     $conn = new mysqli(DB_LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
