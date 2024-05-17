@@ -1,53 +1,28 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rijschool</title>
-    <style>
-        /* Background information section */
-        .background-information {
-            background-image: url("assets/images/rijschool_home1.svg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-        }
-        .container-height {
-            height: 400px;
-        }
-        .container-items-left {
-            display: flex;
-            flex-direction: column; /* Changed from row to column */
-            justify-content: center;
-            align-items: start;
-        }
+<style>
+    .background-information {
+    background-image: url("assets/images/rijschool_home1.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    .container-height{
+    height:400px;
+    }
+    .container-items-left {
+    display: flex;
+    flex-direction: column; /* Changed from row to column */
+        justify-content: center;
+        align-items: start;
+    }
+    /*.container-items-right {*/
+    /*    display: flex;*/
+    /*    flex-direction: column; !* Changed from row to column *!*/
+    /*    justify-content: center;*/
+    /*    align-items: end;*/
+    /*}*/
 
-        /* Cookie banner and settings */
-        .cookie-banner {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #fff;
-            padding: 10px;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .cookie-settings {
-            position: fixed;
-            bottom: 50px;
-            right: 20px;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
+
+</style>
 
 <div id="container-visie" class="container-fluid mt-5 mb-5 text-dark">
     <div class="row container-height">
@@ -59,7 +34,8 @@
                 Bij Vierkante wielen geloven we in het empoweren van onze leerlingen. We bieden een duurzame en op maat gemaakte rijervaring, zodat jongeren de vrijheid van autorijden kunnen ervaren, ongeacht hun fysieke uitdagingen.
             </p>
         </div>
-        <div class="col-6 rounded background-information"></div>
+        <div class="col-6 rounded background-information" >
+        </div>
     </div>
 </div>
 
@@ -149,81 +125,4 @@
     </div>
 </div>
 
-<div id="cookie-banner" class="cookie-banner">
-    <p>We gebruiken cookies om uw browserervaring te verbeteren. <a href="#" id="cookie-settings-link">Instellingen aanpassen</a>.</p>
-    <button id="accept-cookies">Accepteer</button>
-</div>
 
-<div id="cookie-settings" class="cookie-settings hidden">
-    <h2>Cookie-instellingen</h2>
-    <label>
-        <input type="checkbox" id="necessary-cookies" checked disabled> Noodzakelijke cookies
-    </label>
-    <label>
-        <input type="checkbox" id="analytics-cookies"> Analytics cookies
-    </label>
-    <label>
-        <input type="checkbox" id="marketing-cookies"> Marketing cookies
-    </label>
-    <button id="save-settings">Opslaan</button>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const cookieBanner = document.getElementById('cookie-banner');
-    const cookieSettings = document.getElementById('cookie-settings');
-    const acceptCookiesButton = document.getElementById('accept-cookies');
-    const settingsLink = document.getElementById('cookie-settings-link');
-    const saveSettingsButton = document.getElementById('save-settings');
-
-    // Check if cookies are already set
-    if (!getCookie('cookiesAccepted')) {
-        cookieBanner.style.display = 'block';
-    }
-
-    acceptCookiesButton.addEventListener('click', () => {
-        setCookie('cookiesAccepted', true, 365);
-        cookieBanner.style.display = 'none';
-    });
-
-    settingsLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        cookieSettings.classList.toggle('hidden');
-    });
-
-    saveSettingsButton.addEventListener('click', () => {
-        const analyticsCookies = document.getElementById('analytics-cookies').checked;
-        const marketingCookies = document.getElementById('marketing-cookies').checked;
-
-        setCookie('analyticsCookies', analyticsCookies, 365);
-        setCookie('marketingCookies', marketingCookies, 365);
-        
-        cookieSettings.classList.add('hidden');
-        cookieBanner.style.display = 'none';
-    });
-
-    function setCookie(name, value, days) {
-        let expires = "";
-        if (days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "") + expires + "; path=/";
-    }
-
-    function getCookie(name) {
-        const nameEQ = name + "=";
-        const ca = document.cookie.split(';');
-        for(let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-    }
-});
-</script>
-
-</body>
-</html>
