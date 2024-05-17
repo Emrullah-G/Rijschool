@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require_once "assets/header.php";
 
@@ -54,7 +53,6 @@ require 'assets/layouts/modals.php';
 
 <div class="container">
     <?php
-
     if (isset($_SESSION['user_key'])) {
         if ($_SESSION['user_role'] == 2) {
             echo "Hallo, welkom op de admin pagina!";
@@ -64,7 +62,6 @@ require 'assets/layouts/modals.php';
     } else {
         require_once "assets/layouts/home.php";
     }
-
     ?>
 </div>
 
@@ -98,6 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if cookies are already set
     if (!getCookie('cookiesAccepted')) {
         cookieBanner.style.display = 'block';
+    } else {
+        // Read the preferences from cookies and set the checkboxes accordingly
+        document.getElementById('analytics-cookies').checked = getCookie('analyticsCookies') === 'true';
+        document.getElementById('marketing-cookies').checked = getCookie('marketingCookies') === 'true';
     }
 
     acceptCookiesButton.addEventListener('click', () => {
@@ -116,7 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setCookie('analyticsCookies', analyticsCookies, 365);
         setCookie('marketingCookies', marketingCookies, 365);
-        
+        setCookie('cookiesAccepted', true, 365);  // Ensure cookiesAccepted is also set
+
         cookieSettings.classList.add('hidden');
         cookieBanner.style.display = 'none';
     });
